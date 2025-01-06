@@ -8,7 +8,7 @@ export default defineConfig({
     "process.env": process.env,
   },
   plugins: [react(), svgr()],
-  // base: './'
+  base: "/", // Cấu hình base path cho project
   resolve: {
     alias: [{ find: "~", replacement: "/src" }],
   },
