@@ -53,13 +53,27 @@ const CardSmall = ({ title, description, boardId, background }) => {
             borderRadius: "10px",
           }}></Box>
         <Box sx={{ ml: 2 }}>
-          <Box sx={{ fontSize: "14px", fontWeight: "500" }}>{title}</Box>
+          <Box
+            sx={{
+              fontSize: "14px",
+              fontWeight: "500",
+              width: "290px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}>
+            {title}
+          </Box>
           <Box
             sx={{
               fontSize: "12px",
               fontWeight: "400",
               lineHeight: "16px",
               color: "#9FADBC",
+              width: "290px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
             }}>
             {description}
           </Box>

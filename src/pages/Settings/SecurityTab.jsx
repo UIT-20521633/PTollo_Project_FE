@@ -7,7 +7,9 @@ import PasswordIcon from "@mui/icons-material/Password";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import LockIcon from "@mui/icons-material/Lock";
 import LogoutIcon from "@mui/icons-material/Logout";
-
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import IconButton from "@mui/material/IconButton";
 import {
   FIELD_REQUIRED_MESSAGE,
   PASSWORD_RULE,
@@ -19,9 +21,13 @@ import { useConfirm } from "material-ui-confirm";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { updateUserAPI, logoutUserAPI } from "~/redux/user/userSlice";
+import { useState } from "react";
 
 function SecurityTab() {
   const dispatch = useDispatch();
+  const [showCurPassword, setShowCurPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showPasswordConf, setshowPasswordConf] = useState(false);
   const {
     register,
     handleSubmit,
@@ -101,11 +107,11 @@ function SecurityTab() {
               flexDirection: "column",
               gap: 2,
             }}>
-            <Box>
+            <Box sx={{ position: "relative" }}>
               <TextField
                 fullWidth
                 label="Current Password"
-                type="password"
+                type={showCurPassword ? "text" : "password"}
                 variant="outlined"
                 InputProps={{
                   startAdornment: (
@@ -123,14 +129,28 @@ function SecurityTab() {
                 })}
                 error={!!errors["current_password"]}
               />
+              <IconButton
+                onClick={() => setShowCurPassword(!showCurPassword)}
+                sx={{
+                  position: "absolute",
+                  right: 0,
+                  top: "15%",
+                  color: "white",
+                }}>
+                {showCurPassword ? (
+                  <VisibilityOffOutlinedIcon />
+                ) : (
+                  <VisibilityOutlinedIcon />
+                )}
+              </IconButton>
               <FieldErrorAlert errors={errors} fieldName={"current_password"} />
             </Box>
 
-            <Box>
+            <Box sx={{ position: "relative" }}>
               <TextField
                 fullWidth
                 label="New Password"
-                type="password"
+                type={showNewPassword ? "text" : "password"}
                 variant="outlined"
                 InputProps={{
                   startAdornment: (
@@ -148,14 +168,28 @@ function SecurityTab() {
                 })}
                 error={!!errors["new_password"]}
               />
+              <IconButton
+                onClick={() => setShowNewPassword(!showNewPassword)}
+                sx={{
+                  position: "absolute",
+                  right: 0,
+                  top: "15%",
+                  color: "white",
+                }}>
+                {showNewPassword ? (
+                  <VisibilityOffOutlinedIcon />
+                ) : (
+                  <VisibilityOutlinedIcon />
+                )}
+              </IconButton>
               <FieldErrorAlert errors={errors} fieldName={"new_password"} />
             </Box>
 
-            <Box>
+            <Box sx={{ position: "relative" }}>
               <TextField
                 fullWidth
                 label="New Password Confirmation"
-                type="password"
+                type={showPasswordConf ? "text" : "password"}
                 variant="outlined"
                 InputProps={{
                   startAdornment: (
@@ -172,6 +206,20 @@ function SecurityTab() {
                 })}
                 error={!!errors["new_password_confirmation"]}
               />
+              <IconButton
+                onClick={() => setshowPasswordConf(!showPasswordConf)}
+                sx={{
+                  position: "absolute",
+                  right: 0,
+                  top: "15%",
+                  color: "white",
+                }}>
+                {showPasswordConf ? (
+                  <VisibilityOffOutlinedIcon />
+                ) : (
+                  <VisibilityOutlinedIcon />
+                )}
+              </IconButton>
               <FieldErrorAlert
                 errors={errors}
                 fieldName={"new_password_confirmation"}

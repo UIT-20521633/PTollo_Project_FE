@@ -11,11 +11,21 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import theme from "~/theme";
+import { useSelector } from "react-redux";
+import { fetchTemplatesAPI } from "~/apis";
+import { useNavigate } from "react-router-dom";
 
 const Templates = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openList, setOpenList] = React.useState(true); // Controls the collapse state
   const open = Boolean(anchorEl); // Controls the menu state
+  const [templates, setTemplates] = React.useState([]);
+
+  React.useEffect(() => {
+    fetchTemplatesAPI().then((data) => {
+      setTemplates(data);
+    });
+  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -28,7 +38,7 @@ const Templates = () => {
   const handleClickList = () => {
     setOpenList(!openList);
   };
-
+  const navigate = useNavigate();
   return (
     <div>
       <Button
@@ -48,7 +58,7 @@ const Templates = () => {
         onClose={handleClose}
         MenuListProps={{
           "aria-labelledby": "basic-button",
-          sx: { maxHeight: "183px", p: 0, maxWidth: "270px" },
+          sx: { maxHeight: "250px", p: 0, maxWidth: "350px" },
         }}>
         <List
           component="nav"
@@ -73,32 +83,38 @@ const Templates = () => {
             </Box>
           </ListItemButton>
           <Collapse in={openList} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemButton>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    margin: "0px 8px 0px",
+            {templates.map((template) => (
+              <List key={template._id} component="div" disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    navigate(`/templates/${template._id}`);
+                    handleClose();
                   }}>
-                  <Avatar
-                    src="https://picsum.photos/seed/picsum/200/300"
-                    variant="rounded"></Avatar>
                   <Box
                     sx={{
-                      ml: 2,
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      whiteSpace: "nowrap", // Prevents wrapping
-                      overflow: "hidden", // Hides overflow
-                      textOverflow: "ellipsis", // Adds ellipsis when text is too long
-                      maxWidth: "160px", // Adjust width as needed
+                      display: "flex",
+                      alignItems: "center",
+                      margin: "0px 8px 0px",
                     }}>
-                    PicSum Templatefdsfasafasfsfasf
+                    <Avatar
+                      src={template?.background}
+                      variant="rounded"></Avatar>
+                    <Box
+                      sx={{
+                        ml: 2,
+                        fontSize: "14px",
+                        fontWeight: "500",
+                        whiteSpace: "nowrap", // Prevents wrapping
+                        overflow: "hidden", // Hides overflow
+                        textOverflow: "ellipsis", // Adds ellipsis when text is too long
+                        maxWidth: "260px", // Adjust width as needed
+                      }}>
+                      {template?.title}
+                    </Box>
                   </Box>
-                </Box>
-              </ListItemButton>
-            </List>
+                </ListItemButton>
+              </List>
+            ))}
           </Collapse>
         </List>
       </Menu>

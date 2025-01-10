@@ -137,15 +137,10 @@ const DashBoard = ({ hideNav }) => {
   //lấy userId từ store
   const userId = useSelector(selectCurrentUser)._id;
   socketIoInstance.emit("registerUser", { userId: userId });
+  // Tính giá trị của left dựa trên hideNav
+  const calculateLeft = () => (hideNav ? "1.3rem" : "4rem");
   return (
-    <AppProvider
-      navigation={NAVIGATION_MAIN}
-      theme={theme}
-      branding={{
-        logo: <img src="/icons/icon.png" alt="MUI logo" />,
-        title: "MUI",
-        homeUrl: "/toolpad/core/introduction",
-      }}>
+    <AppProvider navigation={NAVIGATION_MAIN} theme={theme}>
       <DashboardLayout
         hideNavigation={hideNav}
         slots={{
@@ -167,7 +162,7 @@ const DashBoard = ({ hideNav }) => {
                     sx={{
                       position: "absolute",
                       top: "0",
-                      left: hideNav ? "1.3rem" : "4rem",
+                      left: calculateLeft(),
                       cursor: "pointer",
                     }}>
                     <img

@@ -247,9 +247,17 @@ export const deleteTemplateAPI = async (templateId) => {
   );
   return response.data;
 };
-export const fetchTemplateDetailsAPI = async (templateId) => {
-  const response = await authorizedAxiosInstance.get(
-    `${API_ROOT}/v1/templates/${templateId}`
+export const cloneTemplateAPI = async (templateId) => {
+  const response = await authorizedAxiosInstance.post(
+    `${API_ROOT}/v1/templates/${templateId}/clone`
   );
+  return response.data;
+};
+//Chuyển board sang template
+export const convertBoardToTemplateAPI = async (boardId) => {
+  const response = await authorizedAxiosInstance.post(
+    `${API_ROOT}/v1/boards/${boardId}/template`
+  );
+  toast.success("Board converted to template successfully!");
   return response.data;
 };

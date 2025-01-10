@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Popover from "@mui/material/Popover";
@@ -18,7 +18,6 @@ import { FileUploader } from "react-drag-drop-files";
 import { singleFileValidator } from "~/utils/validators";
 import { toast } from "react-toastify";
 import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
 import SearchIcon from "@mui/icons-material/Search";
 
 const BackgroundSelector = ({ boardId, onSave }) => {

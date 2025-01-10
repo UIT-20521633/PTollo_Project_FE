@@ -1,7 +1,9 @@
+/* eslint-disable no-useless-catch */
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import Tooltip from "@mui/material/Tooltip";
+import Button from "@mui/material/Button";
 // import FlashOnIcon from "@mui/icons-material/FlashOn";
 import IconButton from "@mui/material/IconButton";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -19,13 +21,20 @@ import {
   selectStarredBoards,
   toggleStarredBoardAPI,
 } from "~/redux/user/userSlice";
-import { getBackgroundBoardAPI, updateBoardDetailsAPI } from "~/apis";
+import {
+  convertBoardToTemplateAPI,
+  getBackgroundBoardAPI,
+  updateBoardDetailsAPI,
+} from "~/apis";
 import { updateCurrentActiveBoard } from "~/redux/activeBoard/activeBoardSlice";
 import BackgroundSelector from "~/components/BackgroundSelector/BackgroundSelector";
 import ToggleFocusInput from "~/components/Form/ToggleFocusInput";
 import { cloneDeep } from "lodash";
 import ToggleFocusInputBoard from "~/components/Form/ToggleFocusInputBoard";
 import { useEffect } from "react";
+import TableChartRoundedIcon from "@mui/icons-material/TableChartRounded";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const MENU_STYLE = {
   backgroundColor: theme.palette.primary.main,
@@ -45,6 +54,7 @@ const MENU_STYLE = {
 const BoardBar = ({ board }) => {
   // object Detructuring: bóc tách phần tử
   const starredBoards = useSelector(selectStarredBoards);
+  const navigate = useNavigate();
   const isMarked = starredBoards.some((b) => b.boardId === board._id);
   const handleToggleMark = () => {
     //Gọi API cập nhật starredBoards
@@ -64,7 +74,14 @@ const BoardBar = ({ board }) => {
     const newBoard = { ...board, title: newTitle };
     dispatch(updateCurrentActiveBoard(newBoard));
   };
-  console.log("BoardBar", board);
+  const handleConvertBoardToTemplate = async (boardId) => {
+    try {
+      const response = await convertBoardToTemplateAPI(boardId);
+      navigate(`/templates/${response.templateId}`);
+    } catch (error) {
+      throw error;
+    }
+  };
   return (
     <Box
       sx={{
@@ -137,13 +154,35 @@ const BoardBar = ({ board }) => {
           boardId={board._id}
           onSave={handleBackgroundChange}
         />
-        <Tooltip title="Board">
+        <Tooltip title="Convert Template" arrow>
+          <Button
+            onClick={() => handleConvertBoardToTemplate(board._id)}
+            variant="contained"
+            startIcon={
+              <TableChartRoundedIcon
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === "dark" ? "white" : "#616161",
+                }}
+              />
+            }
+            sx={{
+              textTransform: "none",
+              "&:hover": { borderColor: "white" },
+              backgroundColor: "#172B4D",
+              color: "white",
+            }}>
+            Convert Template
+          </Button>
+        </Tooltip>
+        {/* <Tooltip title="Board">
           <Chip
             sx={MENU_STYLE}
-            icon={<AddToDriveIcon sx={{ ml: 0 }} />}
-            label="Board"
+            icon={<TableChartRoundedIcon />}
+            onClick={() => handleConvertBoardToTemplate(board._id)}
+            label="Convert Template"
           />
-        </Tooltip>
+        </Tooltip> */}
       </Box>
       <Box
         sx={{
@@ -155,11 +194,11 @@ const BoardBar = ({ board }) => {
           justifyContent: { xs: "center", md: "flex-end" }, // Center align on small screens
         }}>
         <CallGroupBoard />
-        <Chip
+        {/* <Chip
           sx={MENU_STYLE}
           icon={<FilterListIcon sx={{ ml: 0 }} />}
           label="Filter"
-        />
+        /> */}
         {/* Xử lý mời user vào làm thành viên của Board */}
         <InviteBoardUser boardId={board._id} />
         {/* Hiển thị ds thành viên của board */}

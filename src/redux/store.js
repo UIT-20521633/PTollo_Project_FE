@@ -10,6 +10,7 @@ import { activeCardReducer } from "./activeCard/activeCardSlice";
 import { notificationsReducer } from "./notifications/notificationsSlice";
 import { callInfoReducer } from "./activieCall/callSlice";
 import { chatReducer } from "./Chats/chatSlice";
+import { activeTemplateReducer } from "./activeTemplate/activeTemplateSlice";
 
 // Cấu hình persist
 const rootPersistConfig = {
@@ -33,6 +34,7 @@ const reducers = combineReducers({
   notifications: notificationsReducer,
   callInfo: callInfoReducer,
   chat: chatReducer,
+  activeTemplate: activeTemplateReducer,
 });
 // Thực hiện persist Reducer
 const persistedReducers = persistReducer(rootPersistConfig, reducers);

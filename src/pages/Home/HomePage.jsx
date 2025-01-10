@@ -6,7 +6,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid2";
-import ListHomePage from "../../../src/assets/img/HomePage/HomePageContent.svg"; // Điều chỉnh đường dẫn nếu cần
+import ListHomePage from "./ListHomePage/ListHomePage";
 
 const HomePage = () => {
   return (
@@ -45,7 +45,8 @@ const HomePage = () => {
                       height: "108px",
                       minHeight: "100px",
                     }}
-                    image={ListHomePage}
+                    yarnb
+                    image="HomePage/HomePageContent.svg"
                     alt="green iguana"
                   />
                   <CardContent>

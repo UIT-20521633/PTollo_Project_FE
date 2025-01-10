@@ -1,9 +1,7 @@
 import { Route, Routes, Navigate, Outlet, useLocation } from "react-router-dom";
 import DashBoard from "./components/DashBoard/DashBoard";
 import { NAVIGATION_MAIN, NAVIGATION_USER } from "~/config/navigation";
-import BoardsPage from "./pages/BoardsPage/BoardsPage";
 import BoardPage from "./pages/Boards/_id";
-import TemplatePage from "./pages/TemplatesP/TemplatePage";
 import HomePage from "./pages/Home/HomePage";
 import NotFound from "./pages/404/NotFound";
 import Auth from "./pages/Auth/Auth";
@@ -16,6 +14,7 @@ import Boards from "./pages/Boards";
 import CallPage from "./pages/CallPage/CallPage";
 import TemplateDetail from "./pages/TemplatesP/TemplateDetail";
 import Landingpage from "./pages/LandingPage/Landingpage";
+import TemplatesPage from "./pages/TemplatesP/TemplatesPage";
 
 /**
  * Giải pháp Clean Code trong việc xác định các route nào cần đăng nhập tài khoản xong thì mới cho truy cập
@@ -69,7 +68,7 @@ function AppRoutes() {
               <Navigate to="/boards" replace={true} />
             }
           />
-          <Route path="/templates" element={<TemplatePage />} />
+          <Route path="/templates" element={<TemplatesPage />} />
           <Route path="/templates/:id" element={<TemplateDetail />} />
           <Route path="/home" element={<HomePage />} />
           {/* Board Detail */}

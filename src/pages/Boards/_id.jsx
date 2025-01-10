@@ -156,8 +156,6 @@ const BoardPage = () => {
   if (!board || loading) {
     return <PageLoadingSpinner caption="Loading Board..." />;
   }
-  console.log("BoardPageID", board._id);
-  console.log("boardId", boardId);
   return (
     <>
       {/* Modal Active Card, check đóng/mở dựa theo cái State isShowActiveCard lưu tròng redux  */}

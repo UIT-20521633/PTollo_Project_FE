@@ -30,6 +30,7 @@ import {
   selectStarredBoards,
 } from "~/redux/user/userSlice";
 import CardComponentBoard from "~/components/Card/CardComponentBoard";
+import { fetchCompletionBoardAPI } from "~/redux/activeBoard/activeBoardSlice";
 
 function Boards() {
   // Số lượng bản ghi boards hiển thị tối đa trên 1 page tùy dự án (thường sẽ là 12 cái)
@@ -94,6 +95,18 @@ function Boards() {
   );
   return (
     <Container disableGutters maxWidth={false}>
+      {/* Button tạo board  */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          pl: 2,
+          pt: 2,
+          width: "25%",
+        }}>
+        <SidebarCreateBoardModal afterCreateNewBoard={afterCreateNewBoard} />
+        <Divider />
+      </Box>
       <Box
         sx={{
           paddingX: 2,
@@ -245,15 +258,6 @@ function Boards() {
               </Box>
             )}
           </Grid>
-        </Grid>
-        {/* Button tạo board  */}
-        <Grid xs={12} sm={9}>
-          <Stack spacing={2}>
-            <Divider />
-            <SidebarCreateBoardModal
-              afterCreateNewBoard={afterCreateNewBoard}
-            />
-          </Stack>
         </Grid>
       </Box>
     </Container>

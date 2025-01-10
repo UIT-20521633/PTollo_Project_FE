@@ -17,6 +17,11 @@ import {
   toggleStarredBoardAPI,
 } from "~/redux/user/userSlice";
 import { useSelector } from "react-redux";
+import { Gauge } from "@mui/x-charts/Gauge";
+import {
+  fetchCompletionBoardAPI,
+  selectCompletionBoard,
+} from "~/redux/activeBoard/activeBoardSlice";
 const CardComponentBoard = ({ title, description, boardId, background }) => {
   const [isHovered, setIsHovered] = useState(false);
   const dispatch = useDispatch();
