@@ -24,6 +24,7 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { createNewBoardAPI } from "~/apis";
+import { useNavigate } from "react-router-dom";
 const BOARD_TYPES = {
   PUBLIC: "public",
   PRIVATE: "private",
@@ -56,6 +57,7 @@ const Create = ({ afterCreateNewBoard }) => {
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
   // Xử lý responsive
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
   // console.log(matches);
@@ -120,6 +122,9 @@ const Create = ({ afterCreateNewBoard }) => {
           </Box>
         </MenuItem>
         <MenuItem
+          onClick={() => {
+            navigate("/templates");
+          }}
           sx={{
             display: "flex",
             flexDirection: "column",

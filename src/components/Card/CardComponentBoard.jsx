@@ -17,7 +17,6 @@ import {
   toggleStarredBoardAPI,
 } from "~/redux/user/userSlice";
 import { useSelector } from "react-redux";
-import { Gauge } from "@mui/x-charts/Gauge";
 import {
   fetchCompletionBoardAPI,
   selectCompletionBoard,

@@ -25,8 +25,9 @@ const CustomCardMedia = ({
   // Xử lý áp dụng một template để tạo board mới
   const handleApplyTemplate = async (templateId) => {
     try {
-      const response = await cloneTemplateAPI(templateId);
-      toast.success(`Board đã được tạo với ID: ${response.data.boardId}`);
+      const boardId = await cloneTemplateAPI(templateId);
+      toast.success(`Board đã được tạo với ID: ${boardId}`);
+      navigate(`/boards/${boardId}`);
     } catch (error) {
       toast.error("Không thể áp dụng template:", error);
     }
@@ -52,15 +53,17 @@ const CustomCardMedia = ({
             top: -26,
             zIndex: 1,
           }}>
-          <Avatar
-            alt={template?.creator || "Template Creator"}
-            src="https://mui.com/static/images/avatar/1.jpg" // Thay bằng ảnh người tạo template (nếu có)
-            sx={{
-              width: 53,
-              height: 53,
-              border: "3px solid white",
-            }}
-          />
+          <Tooltip title={template?.displayName || "Template Creator"}>
+            <Avatar
+              alt={template?.displayName || "Template Creator"}
+              src={template?.avatar}
+              sx={{
+                width: 53,
+                height: 53,
+                border: "3px solid white",
+              }}
+            />
+          </Tooltip>
         </Box>
         <CardContent sx={{ pt: 0.1 }}>
           <Typography gutterBottom variant="h6" component="div">
